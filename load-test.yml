@@ -1,0 +1,22 @@
+config:
+  target: "http://localhost:3000"
+  phases:
+    - duration: 10
+      arrivalRate: 5
+      name: "Warm up (Aquecimento)"
+    - duration: 20
+      arrivalRate: 20
+      name: "Stress test (Pico de Carga)"
+  plugins:
+    metrics-by-endpoint: {}
+scenarios:
+  - name: "Fluxo de Consulta de Analytics"
+    weight: 7
+    flow:
+      - get:
+          url: "/api/analytics"
+  - name: "Fluxo de Consulta de Pedidos"
+    weight: 3
+    flow:
+      - get:
+          url: "/api/purchases"

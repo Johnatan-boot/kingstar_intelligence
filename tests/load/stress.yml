@@ -1,0 +1,20 @@
+config:
+  target: "http://localhost:3000"
+  phases:
+    - duration: 30
+      arrivalRate: 5
+      name: "Warm up (Aquecimento)"
+    - duration: 60
+      arrivalRate: 20
+      name: "Stress test (Carga Alta)"
+scenarios:
+  - name: "Simulação de Operadores Navegando"
+    flow:
+      - get:
+          url: "/api/purchases"
+      - think: 2
+      - get:
+          url: "/api/receivings"
+      - think: 2
+      - get:
+          url: "/api/pcl/divergences"

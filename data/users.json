@@ -1,0 +1,34 @@
+[
+  {
+    "id": "e94e66f4-db12-4427-bc86-6bdb9d0e9726",
+    "name": "will_gestor",
+    "email": "will_gestor@kingstar.com",
+    "password": "$2b$10$yXPgBZb20v0qNlBLhcBujelaI7JVx2zKKtJM/j8gnD99tQaUSpQqi",
+    "department": "Diretoria",
+    "role": "admin"
+  },
+  {
+    "id": "00d25884-5799-4c8f-9a04-d4d971dcb84c",
+    "name": "leo_gestor",
+    "email": "leo_gestor@kingstar.com",
+    "password": "$2b$10$bJ4eznypeTaIdkTU5Jqf5uorIFrgz816nbeULHoQemQ1bi6mrSSvC",
+    "department": "Diretoria",
+    "role": "admin"
+  },
+  {
+    "id": "7c27c95e-7df4-4e6b-911f-72780d6ee372",
+    "name": "rob_receb",
+    "email": "rob_receb@kingstar.com",
+    "password": "$2b$10$W45EBobARJot44t8BarioudbOq2oztRzIbUaTYiBJpXiCs./It366",
+    "department": "Recebimento",
+    "role": "user"
+  },
+  {
+    "id": "ba9b1964-af00-4d96-997f-fd3b4aa7ba78",
+    "name": "wall_receb",
+    "email": "wall_receb@kingstar.com",
+    "password": "$2b$10$iVkDOmoWLcHDQ3Y.SPHjZuQthTinp4d9AF36QmaRg2s0LROfC0pju",
+    "department": "Recebimento",
+    "role": "user"
+  }
+]
