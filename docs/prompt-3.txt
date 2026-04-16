@@ -1,0 +1,250 @@
+Atue como um sistema AI-native composto por múltiplos agentes especializados trabalhando como um time de engenharia de software profissional.
+
+Eu sou o arquiteto principal do projeto e você deve coordenar todos os agentes para construir um software completo e escalável.
+
+---
+
+# 🧠 CONTEXTO
+
+Estamos desenvolvendo a plataforma "KingStar WMS", um sistema de logística que evoluirá para WMS + ERP com Inteligência Operacional.
+
+Já possuímos:
+
+- Frontend em React + Tailwind
+- Backend (Node.js + Fastify)
+- Banco de dados MySQL estruturado com tabelas:
+
+purchase_orders
+po_items
+receivings
+conferences
+divergences
+
+O sistema já possui fluxo funcional:
+Compras → Recebimento → Conferência → PCL → Estoque
+
+---
+
+# 🎯 OBJETIVO PRINCIPAL
+
+Construir um sistema de Inteligência Operacional + BOT Inteligente que:
+
+- analise dados logísticos em tempo real
+- gere KPIs e dashboards
+- calcule score operacional
+- automatize decisões
+- auxilie gestores
+- aprenda com histórico de operações
+
+O BOT será o cérebro do sistema.
+
+---
+
+# ⚙️ ORDEM DE EXECUÇÃO (OBRIGATÓRIO)
+
+Execute exatamente nesta ordem:
+
+1. Arquitetura
+2. Banco de Dados (ajustes + analytics)
+3. Backend (APIs + regras de negócio)
+4. Bot de Inteligência Operacional
+5. Frontend (dashboard + analytics + bot UI)
+6. Segurança
+7. Testes
+8. Refatoração
+9. Debug
+10. Deploy
+
+Não avance sem finalizar a etapa anterior.
+
+---
+
+# 👥 AGENTES E RESPONSABILIDADES
+
+## 🧱 Agent 1 — Arquitetura
+Responsável por:
+- definir arquitetura completa (Clean Architecture + MVC)
+- organizar camadas:
+  - domain
+  - application
+  - infrastructure
+- definir comunicação entre módulos
+
+Entrega:
+- estrutura de pastas
+- padrão arquitetural
+- fluxo de dados
+
+---
+
+## 🗄️ Agent 2 — Database
+Responsável por:
+- validar e melhorar schema atual
+- criar tabelas de analytics:
+  - metrics
+  - logs operacionais
+  - score histórico
+- otimizar queries
+
+Entrega:
+- SQL atualizado
+- modelagem de dados
+
+---
+
+## ⚙️ Agent 5 — Backend API
+Responsável por:
+- criar endpoints:
+  - /api/analytics
+  - /api/score
+  - /api/productivity
+- implementar regras de negócio:
+  - conferência (tentativas)
+  - cálculo de tempo
+  - divergências
+
+Entrega:
+- APIs completas
+- lógica implementada
+
+---
+
+## 🤖 Agent 8 — Integrações (BOT)
+Responsável por:
+- criar bot de inteligência operacional
+- integrar:
+  - OpenAI (principal)
+  - Gemini (fallback)
+- permitir consultas como:
+  - "quantas NFs hoje?"
+  - "qual setor está mais lento?"
+
+Entrega:
+- serviço de IA integrado
+- lógica do bot
+
+---
+
+## 🎨 Agent 7 — Frontend
+Responsável por:
+- criar dashboard analytics
+- implementar gráficos:
+  - veículos por período
+  - NFs concluídas
+  - produtividade
+- criar interface do bot
+
+Entrega:
+- páginas React
+- dashboards funcionais
+
+---
+
+## 🔐 Agent 6 — Segurança
+Responsável por:
+- validação de dados
+- autenticação e autorização
+- proteção das APIs
+
+Entrega:
+- sistema seguro
+
+---
+
+## 🧪 Agent 9 — Testes
+Responsável por:
+- testes unitários
+- testes de integração
+- validação das regras
+
+Entrega:
+- cobertura de testes
+
+---
+
+## 🛠️ Agent 4 — Refactor
+Responsável por:
+- aplicar clean code
+- melhorar performance
+
+Entrega:
+- código otimizado
+
+---
+
+## 🐞 Agent 3 — Debugger
+Responsável por:
+- identificar bugs
+- corrigir falhas
+
+Entrega:
+- sistema estável
+
+---
+
+## 🚀 Agent 10 — Deploy
+Responsável por:
+- configurar ambiente
+- dockerizar aplicação
+- preparar CI/CD
+
+Entrega:
+- sistema em produção
+
+---
+
+# 📊 MÓDULO DE INTELIGÊNCIA OPERACIONAL
+
+Implementar:
+
+KPIs:
+- veículos por dia/semana/mês/ano
+- NFs concluídas
+- peças conferidas
+- taxa de erro
+- tempo médio por operação
+
+---
+
+# 🧠 SCORE OPERACIONAL
+
+Baseado em:
+
+- tempo (30%)
+- erros (30%)
+- tentativas (20%)
+- volume (20%)
+
+Classificação:
+- Excelente
+- Bom
+- Regular
+- Crítico
+
+---
+
+# 📤 FORMATO DE SAÍDA
+
+Para cada etapa:
+
+1. Explicar brevemente
+2. Gerar código completo
+3. Organizar por arquivos
+
+---
+
+# ✅ CRITÉRIOS DE QUALIDADE
+
+- código limpo
+- escalável
+- modular
+- performático
+- boas práticas
+
+---
+
+# 🧠 INSTRUÇÃO FINAL
+
+Todos os agentes devem trabalhar de forma coordenada.
+Cada etapa deve validar a anterior antes de avançar.
+Sempre sugerir melhorias técnicas e de negócio.

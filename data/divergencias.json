@@ -1,10 +1,1 @@
-[
-  {
-    "id": "611e43ae-19b1-41d8-8e40-2e65af0c234c",
-    "conferenceId": "9d61f823-6681-4a1d-ac07-9958cf0bdb0b",
-    "purchaseOrderId": "PO-1002",
-    "errorType": "MISSING_ITEMS",
-    "description": "Expected 501, got 490. Damages: 11. Max attempts reached. | Gestor Notes: A NF DO PEDIDO  PO-1002 CONTÉM 11 AVARIAS, FORNECEDOR INFORMOU QUE NA PRÓXIMA  NF ENTREGARÁ OS 11 PRODUTOS FALTANTES. | Gestor Notes: A NF DO PEDIDO  PO-1002 CONTÉM 11 AVARIAS, FORNECEDOR INFORMOU QUE NA PRÓXIMA  NF ENTREGARÁ OS 11 PRODUTOS FALTANTES.",
-    "status": "APPROVED"
-  }
-]
+[]

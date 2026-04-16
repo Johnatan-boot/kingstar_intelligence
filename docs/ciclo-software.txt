@@ -1,0 +1,245 @@
+1. Planejamento e Requisitos (O "Porquê")
+[ X ] Definir o Problema: Qual dor do usuário estamos resolvendo?
+=======================================================================================================
+1-Estamos Buscando a Solução de Problemas como Migração de Papéis, Processos Manuais, Sistemas Lentos, e 
+confusos, separadoas, gargalos em todo Centro de Distribuição e suas Operações.
+2- Falta de inspeção de dados importantes, acompanhamento e melhoramento de processos.
+3- Falta de uma inteligencia Operacional em todo o ciclo Operacional.
+=======================================================================================================
+TO-DO-LIST
+[ X ] 1- montar um modulo de Planejamento + Compras e Recebimento + Conferência
+2- Começar a criar o Núcleo da Inteligência Operacional integrado a Inteligência Artificial.
+10- Montar um Sistema de  Inteligência Operacional
+
+[ x ] Critérios de Aceite: O que define que essa tarefa está pronta? (Definition of Done).
+[ X ] 1- Levantamento de dados, Pesquisas e feedbacks com os departamentos da empresa
+[ X ] 2- Testes e Acompanhamento do Úsuario ao Produto desenvolvido. 
+
+[ ] Análise de Viabilidade: Temos as APIs e os dados necessários?
+[ X ] 1- Desenvolvimento de um API para se Comunicar com nosso Banco de dados em tempo real, e com nosso
+frontend.
+[ X ] 2- Planilhas Aguardando para Alimentar Dados Reais do Setores.
+[ X ] 3- Dados levantados com as Pesquisas.
+========================================================================
+2. Design e Arquitetura (O "Como")
+
+[ x ] Desenho de Componentes: Esboçar a hierarquia de componentes (quem é pai, quem é filho).
+
+[ x ] Contrato de Interface: Definir o formato do JSON que será trocado com o backend.
+
+[ x ] Escolha de Estado: O estado será local, global (Redux/Zustand/Signals) ou via URL?
+
+2. Design e Arquitetura (O “Como”) — VISÃO CORRETA DO SEU PROJETO
+✅ 1. Desenho de Componentes (Hierarquia real)
+
+Baseado no seu uso de Router, páginas (Dashboard, Purchases, Receiving…), ícones e navegação:
+
+App
+│
+├── Router
+│   ├── Layout (comum a todas as páginas)
+│   │   ├── Sidebar
+│   │   │   ├── NavItem (Dashboard)
+│   │   │   ├── NavItem (Purchases)
+│   │   │   ├── NavItem (Receiving)
+│   │   │   └── NavItem (Inventory)
+│   │   │
+│   │   ├── Header
+│   │   │   ├── Title
+│   │   │   └── UserMenu
+│   │   │
+│   │   └── Content (Outlet)
+│   │
+│   ├── Pages
+│   │   ├── Dashboard
+│   │   │   ├── KPI Cards
+│   │   │   ├── Charts
+│   │   │   └── AlertsSummary
+│   │   │
+│   │   ├── Purchases
+│   │   │   ├── PurchaseTable
+│   │   │   │   └── PurchaseRow
+│   │   │   ├── PurchaseFilter
+│   │   │   └── CreatePurchaseModal
+│   │   │
+│   │   ├── Receiving
+│   │   │   ├── ReceivingList
+│   │   │   └── ReceivingForm
+│   │   │
+│   │   └── Inventory
+│   │       ├── InventoryTable
+│   │       └── StockStatusBadge
+│
+├── Shared (reutilizáveis)
+│   ├── Button
+│   ├── Input
+│   ├── Modal
+│   ├── Table
+│   └── Badge
+│
+├── Services (integração backend)
+│   ├── api.ts
+│   ├── purchases.service.ts
+│   ├── inventory.service.ts
+│   └── receiving.service.ts
+│
+└── Hooks (lógica isolada)
+    ├── usePurchases.ts
+    ├── useInventory.ts
+    └── useAuth.ts
+🎯 Decisão arquitetural aqui:
+Layout centraliza estrutura (evita duplicação)
+Pages são feature-based
+Componentes pequenos e reutilizáveis
+Lógica separada via hooks
+
+👉 Isso é arquitetura limpa e escalável pra SPA
+
+✅ 2. Contrato de Interface (JSON com backend)
+
+Aqui vamos padronizar como seu frontend conversa com o backend.
+
+📦 PADRÃO GLOBAL DE RESPOSTA
+{
+  "success": true,
+  "data": {},
+  "message": "",
+  "meta": {}
+}
+📌 EXEMPLO REAL — Módulo Purchases
+🔽 GET /purchases
+{
+  "success": true,
+  "data": [
+    {
+      "id": "p1",
+      "productName": "Mouse Gamer",
+      "quantity": 5,
+      "price": 120.50,
+      "supplier": "Fornecedor A",
+      "status": "pending",
+      "createdAt": "2026-04-08T10:00:00Z"
+    }
+  ],
+  "meta": {
+    "total": 50,
+    "page": 1,
+    "limit": 10
+  }
+}
+🔼 POST /purchases
+{
+  "productName": "Mouse Gamer",
+  "quantity": 5,
+  "price": 120.50,
+  "supplier": "Fornecedor A"
+}
+❌ ERRO PADRÃO
+{
+  "success": false,
+  "message": "Erro de validação",
+  "errors": [
+    {
+      "field": "quantity",
+      "message": "Quantidade deve ser maior que zero"
+    }
+  ]
+}
+🎯 Decisões importantes:
+data sempre contém dados
+meta para paginação
+errors para formulário
+success evita ifs confusos no frontend
+✅ 3. Escolha de Estado (DECISÃO CERTA PRA VOCÊ)
+
+Agora o ponto mais importante.
+
+Seu projeto:
+
+múltiplas páginas
+dados vindos de API
+interação de UI
+
+👉 Então você NÃO usa só um tipo de estado — usa combinação.
+
+🧠 Arquitetura de Estado IDEAL
+🟢 1. Estado LOCAL (useState)
+
+✔ Use para:
+
+abrir modal
+inputs
+controle visual
+const [isModalOpen, setIsModalOpen] = useState(false);
+🔵 2. Estado de API (PRINCIPAL)
+
+👉 Esse é o mais importante do seu sistema
+
+✔ Use:
+
+React Query (TanStack Query)
+const { data, isLoading } = useQuery({
+  queryKey: ['purchases'],
+  queryFn: getPurchases
+});
+
+✔ Resolve:
+
+cache
+loading
+refetch automático
+sincronização
+🟡 3. Estado GLOBAL (leve)
+
+👉 Use Zustand, não Redux
+
+✔ Para:
+
+usuário logado
+permissões
+tema
+pequenas infos globais
+const useStore = create((set) => ({
+  user: null,
+  setUser: (user) => set({ user })
+}));
+🟣 4. Estado via URL
+
+✔ Para:
+
+paginação
+filtros
+busca
+/purchases?page=1&status=pending
+🎯 RESUMO FINAL (DECISÃO PROFISSIONAL)
+Tipo de estado	Ferramenta	Uso
+Local	useState	UI
+API	React Query	Dados principais
+Global	Zustand	Sessão/usuário
+URL	React Router	Filtros
+🔥 CONCLUSÃO (VISÃO CERTA DO SEU PROJETO)
+
+Você tem hoje:
+
+✔ SPA bem estruturada
+✔ Arquitetura modular correta
+✔ Pronto para escalar
+
+E a arquitetura ideal é:
+
+Componentização por feature
+API bem padronizada
+Estado separado por responsabilidade
+
+============================================================================================
+
+3. Desenvolvimento (O "Fazer")
+[ ] Setup do Ambiente: Branch criada seguindo o padrão (ex: feature/nome-da-task).
+
+[ ] Desenvolvimento UI: Construir a interface seguindo o design/protótipo.
+
+[ ] Integração: Conectar com serviços externos ou mocks.
+
+[ ] Auto-Review: Rodar o Linter e verificar se há "code smells" antes de abrir o PR.
+
+=================================================================================================

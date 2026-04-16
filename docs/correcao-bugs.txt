@@ -1,0 +1,16 @@
+🐛 1. O Bug do ID Gigante (UUID)
+O que estava causando:
+Quando você importava um CSV que não tinha a coluna exata PO_ID, o sistema usava a biblioteca uuidv4() como "plano B" para garantir que o pedido não ficasse sem ID. Essa biblioteca gera aqueles códigos gigantes (ex: d8fa3378-d92a-48b6-8c59-8d6a3e29c612).
+A Correção:
+Alteramos a lógica no ImportService. Agora, o sistema:
+Lê todos os pedidos existentes no banco de dados (ex: PO-1001).
+Encontra o maior número atual.
+Se o CSV não tiver um ID, ele cria um sequencial automaticamente (PO-1002, PO-1003, etc.), mantendo o padrão visual e amigável.
+🐛 2. O Bug da Coluna de Fornecedores ("Unknown")
+O que estava causando:
+O leitor de CSV (csv-parser) é extremamente sensível a letras maiúsculas/minúsculas e espaços em branco. Se a sua planilha tivesse a coluna escrita como Fornecedor, supplier (com espaço no final) ou FORNECEDOR, o sistema procurava estritamente por Supplier. Como não achava a correspondência exata, ele acionava o fallback e preenchia com "Unknown".
+A Correção:
+Implementamos duas melhorias de resiliência na importação:
+Sanitização de Headers: Adicionamos um filtro que remove espaços em branco invisíveis do cabeçalho do CSV antes de ler.
+Busca Case-Insensitive e Multi-Termos: Criamos uma função inteligente que procura pela coluna ignorando maiúsculas/minúsculas e aceitando variações comuns. Agora ele tenta ler Supplier, Fornecedor ou Vendor. (Fizemos o mesmo para as colunas de Quantidade, SKU e Descrição, para deixar a importação à prova de falhas).
+O servidor já foi reiniciado com as correções. Você já pode testar a importação de uma nova planilha e verá que os IDs seguirão a sequência PO-100X e os fornecedores serão lidos corretamente!

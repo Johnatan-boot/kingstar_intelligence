@@ -1,18 +1,1 @@
-[
-  {
-    "id": "e4eb37cc-dd15-4b42-81f7-2877ff339384",
-    "purchaseOrderId": "PO-1001",
-    "licensePlate": "CCN-7C54",
-    "vehicleType": "Caminhão",
-    "startTime": "2026-04-16T14:47:01.552Z",
-    "endTime": "2026-04-16T14:47:44.843Z"
-  },
-  {
-    "id": "65de6a2c-8fb2-4208-a67b-23f5b0d44fbe",
-    "purchaseOrderId": "PO-1002",
-    "licensePlate": "FKF-9024",
-    "vehicleType": "Caminhão",
-    "startTime": "2026-04-16T14:47:33.149Z",
-    "endTime": "2026-04-16T14:48:05.063Z"
-  }
-]
+[]

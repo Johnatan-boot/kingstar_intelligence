@@ -1,0 +1,129 @@
+Atue como um time sênior de engenharia de software AI-native (arquiteto + backend + frontend + data analyst).
+
+Estou desenvolvendo um sistema logístico (WMS simplificado) com os seguintes módulos já existentes:
+
+Compras (importação de planilhas CSV)
+Recebimento
+Conferência (com controle de tentativas)
+PCL (análise de divergências)
+Estoque
+
+Preciso agora implementar um módulo de Analytics e Score de Performance Operacional.
+
+🎯 OBJETIVO
+
+Criar um sistema de análise que:
+
+monitore produtividade
+gere indicadores (KPIs)
+calcule score de qualidade operacional
+exiba dashboards com gráficos e tabelas
+📊 MÉTRICAS NECESSÁRIAS
+🚚 Recebimento
+total de veículos recebidos:
+por dia
+por semana
+por mês
+por ano
+📄 Notas Fiscais (Pedidos concluídos)
+total de NFs concluídas:
+dia
+semana
+mês
+ano
+📦 Conferência
+total de peças conferidas:
+dia
+semana
+mês
+ano
+total de divergências
+taxa de erro (%)
+⏱️ Produtividade
+tempo médio de recebimento
+tempo médio de conferência
+tempo total por operação
+tempo por conferente
+🧠 SCORE OPERACIONAL (IMPORTANTE)
+
+Criar um score de 0 a 100 baseado em:
+
+tempo de processamento (peso 30%)
+quantidade de divergências (peso 30%)
+quantidade de tentativas de conferência (peso 20%)
+volume processado (peso 20%)
+
+O sistema deve:
+
+classificar performance como:
+Excelente
+Boa
+Regular
+Crítica
+🌡️ EXTENSÃO (OPCIONAL AVANÇADO)
+
+Preparar o sistema para futuramente suportar:
+
+sensores (ex: temperatura)
+inspeções físicas
+checklist de qualidade
+🧱 BACKEND
+
+Usando:
+
+Node.js + Fastify
+MySQL
+
+Criar:
+
+endpoints:
+/api/analytics/summary
+/api/analytics/receiving
+/api/analytics/conference
+/api/analytics/productivity
+/api/analytics/score
+queries otimizadas
+agregações por período (day, week, month, year)
+🎨 FRONTEND
+
+Usando:
+
+React + Tailwind
+
+Criar:
+
+Dashboard Analytics com:
+gráficos (linha e barra):
+veículos por período
+peças conferidas
+NFs concluídas
+cards:
+total diário
+produtividade
+score
+tabela:
+histórico de NFs concluídas
+com filtros por data
+📤 FORMATO DE SAÍDA
+
+Execute em etapas:
+
+Modelagem das métricas e queries
+Estrutura backend
+Endpoints
+Frontend (dashboard + gráficos)
+Cálculo do score
+
+Sempre:
+
+explicar brevemente
+depois gerar código
+✅ CRITÉRIOS DE QUALIDADE
+código limpo
+escalável
+queries performáticas
+dados consistentes
+UI clara e moderna
+🧠 INSTRUÇÃO FINAL
+
+Sugira melhorias de métricas e possíveis insights de negócio automaticamente.

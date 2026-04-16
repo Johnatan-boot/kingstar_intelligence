@@ -1,0 +1,122 @@
+🧠 REGRA DE OURO (nível sênior)
+
+“A ferramenta não importa — o fluxo de engenharia importa.”
+
+Se você usa cada IA pra uma parte diferente sem controle, vira bagunça:
+
+código inconsistente
+padrões diferentes
+difícil manutenção
+⚙️ COMO UM SÊNIOR FAZ (setup ideal)
+🔥 1. UMA IA PRINCIPAL (cérebro do projeto)
+
+Escolha UMA para:
+
+arquitetura
+modelagem
+decisões técnicas
+
+👉 Pode ser:
+
+aqui (GPT)
+ou o Google AI Studio
+
+💡 Se você gosta mais do AI Studio → usa ele como principal
+
+🧩 2. OUTRAS IAs = EXECUÇÃO
+
+Use outras ferramentas como “operários”, tipo:
+
+gerar componente React
+refatorar função
+melhorar UI
+🚀 MELHOR ESTRATÉGIA PRA VOCÊ (baseado no que falou)
+✅ Opção ideal (recomendada)
+
+👉 Use o Google AI Studio para:
+
+rodar SEU PROMPT COMPLETO
+gerar:
+arquitetura
+entidades
+endpoints
+estrutura geral
+🔧 Depois faça assim:
+🟦 Backend
+continue na mesma IA (consistência)
+ou use aqui pra:
+refinar lógica
+revisar código
+melhorar arquitetura
+🟩 Frontend (React)
+pode usar AI Studio direto
+ou usar aqui pra:
+organizar componentes
+melhorar estrutura
+💣 FLUXO PROFISSIONAL (isso é o que você quer seguir)
+🧠 Etapa 1 — Arquitetura (USE 1 IA SÓ)
+roda seu prompt completo
+NÃO muda de ferramenta
+⚙️ Etapa 2 — Quebrar em partes
+
+Depois pede:
+
+“Agora implemente apenas o módulo de conferência”
+
+🧱 Etapa 3 — Execução por feature
+uma feature por vez
+sempre no mesmo contexto
+🔍 Etapa 4 — Revisão cruzada (aqui você pode usar outra IA)
+
+Exemplo:
+
+gera no AI Studio
+
+cola aqui e pede:
+
+“Analise como engenheiro sênior”
+
+👉 isso é MUITO forte
+
+⚠️ ERRO QUE VOCÊ PRECISA EVITAR
+
+❌ Fazer isso:
+
+backend em uma IA
+frontend em outra
+sem padrão
+
+👉 Resultado: Frankenstein de código
+
+🧠 RESUMO SIMPLES
+
+👉 Você pode usar o AI Studio pra TUDO
+👉 Ou usar GPT pra TUDO
+
+Mas o mais importante:
+
+não misturar sem estratégia
+
+⚡ DICA AVANÇADA (nível elite)
+
+Use assim:
+
+AI Studio → gerar base completa
+GPT → revisar, melhorar e escalar
+
+👉 isso te dá:
+
+velocidade + qualidade
+🚀 Minha recomendação pra você (direto)
+
+Como você disse que gosta do AI Studio:
+
+👉 Usa ele como principal
+👉 E usa aqui como “engenheiro sênior revisor”
+
+Se quiser, eu posso te montar:
+
+👉 
+um workflow completo (tipo passo a passo diário) usando AI Studio + GPT + suas ferramentas (n8n, etc)
+
+Isso vai te colocar MUITO à frente rápido.

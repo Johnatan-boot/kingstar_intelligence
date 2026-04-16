@@ -51,7 +51,7 @@ function Sidebar({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen: (v: boolea
     { path: '/purchases',  name: 'Compras',        icon: Package,         adminOnly: false },
     { path: '/receiving',  name: 'Recebimento',    icon: Truck,           adminOnly: false },
     { path: '/conference', name: 'Conferência',    icon: ClipboardCheck,  adminOnly: false },
-    { path: '/pcl',        name: 'Gestor (PCL)',   icon: AlertTriangle,   adminOnly: true  },
+    { path: '/pcl',        name: 'Gestor',   icon: AlertTriangle,   adminOnly: true  },
     { path: '/stock',      name: 'Estoque',        icon: Archive,         adminOnly: false },
     { path: '/history',    name: 'Histórico',      icon: HistoryIcon,     adminOnly: true  },
   ];

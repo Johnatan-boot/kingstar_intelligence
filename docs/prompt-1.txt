@@ -1,0 +1,412 @@
+Perfeito. Agora sim você trouxe **domínio real** — isso é exatamente o que transforma um prompt comum em algo nível engenharia.
+
+Vou organizar tudo como um sênior faria: **módulos + eventos + entidades + camadas + comunicação**.
+
+---
+
+# 🧠 1. ENTENDIMENTO DO SEU SISTEMA (tradução sênior)
+
+Você basicamente está construindo um:
+
+> **Sistema de Controle de Recebimento e Conferência Logística (WMS simplificado)**
+
+Com base no que você explicou, o fluxo real é:
+
+1. Compras gera pedido (planilha CSV)
+2. Sistema importa planilha
+3. Recebimento visualiza dados
+4. Conferente valida mercadoria
+5. Sistema controla tentativas
+6. Se divergência → vai para PCL (análise)
+7. Se ok → vai para estoque
+
+👉 Isso aqui já é um **fluxo orientado a eventos**, não CRUD simples.
+
+---
+
+# 🧱 2. ENTIDADES PRINCIPAIS (modelagem sênior)
+
+Aqui você começa a pensar como arquiteto:
+
+### 📦 Pedido (PurchaseOrder)
+
+* id
+* fornecedor
+* data
+* status
+
+---
+
+### 🚚 Recebimento (Receiving)
+
+* id
+* pedido_id
+* placa
+* tipo_veiculo
+* inicio
+* termino
+* tempo_minutos
+
+---
+
+### 📋 Conferência (Conference)
+
+* id
+* recebimento_id
+* quant_racks
+* quant_sobras
+* total_pecas
+* pecas_conferidas
+* avarias
+* tentativas
+* status
+
+---
+
+### ⚠️ Divergência (Divergence)
+
+* id
+* conferencia_id
+* tipo_erro
+* descricao
+* status (em análise, aprovado, rejeitado)
+
+---
+
+### 👤 Usuário (User)
+
+* id
+* nome
+* role (compras, recebimento, pcl, estoque)
+
+---
+
+# 🧩 3. MÓDULOS DO SISTEMA
+
+Aqui é onde você sai de “código” e vira arquiteto.
+
+---
+
+## 🟦 1. Módulo de Importação (CSV)
+
+Responsável por:
+
+* ler planilha
+* validar dados
+* criar pedidos
+
+---
+
+## 🟩 2. Módulo de Compras
+
+* gerenciar pedidos
+* servir como fonte de dados
+
+---
+
+## 🟨 3. Módulo de Recebimento
+
+* registrar chegada
+* vincular com pedido
+
+---
+
+## 🟥 4. Módulo de Conferência
+
+* validar mercadoria
+* controlar tentativas (máx 3)
+* registrar divergências
+
+---
+
+## 🟪 5. Módulo PCL (Análise)
+
+* analisar divergências
+* liberar ou bloquear
+
+---
+
+## 🟫 6. Módulo Estoque
+
+* receber produtos aprovados
+* atualizar inventário
+
+---
+
+# ⚡ 4. EVENTOS DO SISTEMA (isso é MUITO sênior)
+
+Aqui está o segredo que pouca gente usa:
+
+---
+
+### 📌 Eventos principais
+
+* `pedido_importado`
+* `recebimento_iniciado`
+* `conferencia_realizada`
+* `conferencia_aprovada`
+* `conferencia_reprovada`
+* `divergencia_detectada`
+* `divergencia_em_analise`
+* `divergencia_aprovada`
+* `movido_para_estoque`
+
+---
+
+👉 Isso permite:
+
+* escalar sistema
+* integrar depois
+* usar filas (RabbitMQ, etc)
+
+---
+
+# 🎯 5. REGRAS DE NEGÓCIO (ESSENCIAL)
+
+Você falou — agora vou formalizar:
+
+---
+
+### ✔️ Regra 1
+
+Conferência só ocorre se:
+
+* NF existe
+* Quantidade bate com pedido
+
+---
+
+### ✔️ Regra 2
+
+Máximo de 3 tentativas
+
+---
+
+### ✔️ Regra 3
+
+Se falhar 3x:
+→ status = `EM_ANALISE_PCL`
+
+---
+
+### ✔️ Regra 4
+
+Se aprovado:
+→ status = `CONCLUIDO`
+→ envia para estoque
+
+---
+
+# 🧱 6. CAMADAS REAIS (AGORA FICOU SÊNIOR)
+
+Aqui é o que você pediu — como um sênior define:
+
+---
+
+## 🔵 Controller
+
+Responsável por:
+
+* receber requisição
+* validar entrada
+* chamar service
+
+👉 NÃO tem regra de negócio
+
+---
+
+## 🟢 Service (coração do sistema)
+
+Responsável por:
+
+* regras de negócio
+* fluxo de conferência
+* controle de tentativas
+
+👉 Aqui vive a inteligência
+
+---
+
+## 🟡 Repository
+
+Responsável por:
+
+* acesso ao banco (MySQL)
+* queries
+
+👉 NÃO tem lógica
+
+---
+
+## 🟣 Domain (nível mais avançado)
+
+* entidades
+* regras puras
+* validações
+
+---
+
+## ⚫ Infra
+
+* CSV parser
+* banco
+* libs externas
+
+---
+
+# 🔄 7. COMUNICAÇÃO ENTRE MÓDULOS
+
+Agora o nível sobe de verdade:
+
+---
+
+## 🧠 Forma simples (inicial)
+
+* Service chama outro service
+
+Ex:
+`ConferenciaService → EstoqueService`
+
+---
+
+## 🚀 Forma avançada (recomendado)
+
+* Comunicação por eventos
+
+Ex:
+
+* Conferência aprovada → dispara evento
+* Estoque escuta evento
+
+---
+
+# 💣 8. AGORA SEU PROMPT FINAL (NÍVEL SÊNIOR ABSOLUTO)
+
+Você pode usar isso direto:
+
+---
+
+> Atue como um time de engenharia de software AI-native.
+>
+> Estou desenvolvendo um sistema de recebimento e conferência logística baseado em importação de planilhas CSV.
+>
+> ## Contexto:
+>
+> Compras gera uma planilha com dados de pedidos. O sistema importa esses dados e permite que o setor de recebimento realize conferência da mercadoria.
+>
+> ## Fluxo:
+>
+> * Importação da planilha
+> * Recebimento da carga
+> * Conferência com até 3 tentativas
+> * Se divergência → PCL
+> * Se aprovado → estoque
+>
+> ## Módulos:
+>
+> * Importação CSV
+> * Compras
+> * Recebimento
+> * Conferência
+> * PCL
+> * Estoque
+>
+> ## Entidades:
+>
+> * Pedido
+> * Recebimento
+> * Conferência
+> * Divergência
+> * Usuário
+>
+> ## Regras:
+>
+> * Conferência só ocorre se dados baterem
+> * Máximo 3 tentativas
+> * Após 3 falhas → PCL
+> * Se aprovado → estoque
+>
+> ## Arquitetura:
+>
+> * Controller, Service, Repository
+> * Separação de responsabilidades
+> * Uso de eventos entre módulos
+>
+> ## Execução:
+>
+> 1. Modelagem de entidades
+> 2. Estrutura de pastas
+> 3. Endpoints
+> 4. Backend
+> 5. Frontend
+>
+> ## Qualidade:
+>
+> * Código limpo
+> * Validações
+> * Tratamento de erros
+> * Escalável
+>
+> Sempre justificar decisões técnicas.
+
+
+Atue como um time de engenharia de software AI-native.
+
+Estou desenvolvendo um sistema de recebimento e conferência logística baseado em importação de planilhas CSV.
+
+Contexto:
+
+Compras gera uma planilha com dados de pedidos. O sistema importa esses dados e permite que o setor de recebimento realize conferência da mercadoria.
+
+Fluxo:
+Importação da planilha
+Recebimento da carga
+Conferência com até 3 tentativas
+Se divergência → PCL
+Se aprovado → estoque
+Módulos:
+Importação CSV
+Compras
+Recebimento
+Conferência
+PCL
+Estoque
+Entidades:
+Pedido
+Recebimento
+Conferência
+Divergência
+Usuário
+Regras:
+Conferência só ocorre se dados baterem
+Máximo 3 tentativas
+Após 3 falhas → PCL
+Se aprovado → estoque
+Arquitetura:
+Controller, Service, Repository
+Separação de responsabilidades
+Uso de eventos entre módulos
+Execução:
+Modelagem de entidades
+Estrutura de pastas
+Endpoints
+Backend
+Frontend
+Qualidade:
+Código limpo
+Validações
+Tratamento de erros
+Escalável
+
+Sempre justificar decisões técnicas.
+
+---
+
+# 🚀 Próximo nível (se quiser)
+
+Agora você está pronto pra:
+
+👉 Transformar isso em **arquitetura orientada a eventos real (com fila)**
+👉 Ou montar isso dentro do **n8n + agentes AI automatizando tudo**
+
+Se quiser, eu posso te mostrar como montar isso como um **SaaS vendável** — isso aqui tem MUITO potencial real.

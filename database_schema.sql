@@ -1,6 +1,7 @@
 -- ==========================================
 -- DATABASE
 -- ==========================================
+--DROP DATABASE IF EXISTS kingstar_wms;
 CREATE DATABASE IF NOT EXISTS kingstar_wms;
 USE kingstar_wms;
 
